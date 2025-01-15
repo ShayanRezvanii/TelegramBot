@@ -300,14 +300,10 @@ bot.on("channel_post", async (msg) => {
             try {
               if (photo) {
                 // If there's a photo, send it with the caption
-                await bot.sendPhoto(userId, photo, {
-                  caption: newMessageText,
-                });
+                await bot.forwardMessage(userId, msg.chat.id, msg.message_id);
+                console.log("Photo forwarded successfully");
 
-                console.log(
-                  `Photo with caption successfully sent to ${userId}`
-                );
-
+                await bot.sendMessage(userId, newMessageText);
                 await bot.sendSticker(
                   userId,
                   "CAACAgQAAxkBAAIBYGeE1Igzn8oMWenjNW_rubPJeNYhAALAEQACr9XwUvvzUOCVe4d5NgQ"
@@ -320,8 +316,11 @@ bot.on("channel_post", async (msg) => {
 
                 console.log(`sticker  successfully sent to ${userId}`);
               } else {
+                const cleanedCaption = text?.replace(/@\w+/g, "");
+
                 // If no photo, send a plain text message
-                await bot.sendMessage(userId, `${newMessageText}\n\n${text}`);
+                await bot.sendMessage(userId, cleanedCaption);
+                await bot.sendMessage(userId, `${newMessageText}`);
                 console.log(`Text message successfully sent to ${userId}`);
               }
             } catch (error) {
