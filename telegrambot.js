@@ -313,14 +313,15 @@ bot.on("channel_post", async (msg) => {
                   userId,
                   "CAACAgQAAxkBAAIBX2eE1IZ0URkm1mo2pEIKSZYEPcKiAAIzEgACNELwUgi1GYAx562fNgQ"
                 );
+                nnjnm;
 
                 console.log(`sticker  successfully sent to ${userId}`);
               } else {
-                const cleanedCaption = text?.replace(/@\w+/g, "");
+                // const cleanedCaption = text?.replace(/@\w+/g, "");
 
                 // If no photo, send a plain text message
-                await bot.sendMessage(userId, cleanedCaption);
-                await bot.sendMessage(userId, `${newMessageText}`);
+                await bot.sendMessage(userId, text);
+                // await bot.sendMessage(userId, `${newMessageText}`);
                 console.log(`Text message successfully sent to ${userId}`);
               }
             } catch (error) {
