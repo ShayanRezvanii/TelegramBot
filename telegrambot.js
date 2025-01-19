@@ -5,6 +5,7 @@ const mongoose = require("mongoose");
 const TelegramBot = require("node-telegram-bot-api");
 const User = require("./models/user");
 const { SocksProxyAgent } = require("socks-proxy-agent");
+const moment = require("moment-jalaali");
 
 const newMessageText = `
 سلام وقت بخیر🌹
@@ -58,8 +59,22 @@ const bot = new TelegramBot(TOKEN, {
 
 console.log("Bot has started successfully.");
 
-bot.onText(/\/start/, (msg) => {
+bot.onText(/\/start/, async (msg) => {
   const chatId = msg.chat.id;
+
+  let user = await User.findOne({ username: msg.chat.username });
+  // Get today's date (current system date)
+  const now = new Date();
+  // Convert to Persian (Jalali) calendar
+  const persianDateTime = moment(now)
+    .locale("fa")
+    .format("YYYY/MM/DD HH:mm:ss");
+
+  console.log(persianDateTime);
+
+  const joinedMessage = `A new member with username: ${msg.chat.username} joined at ${persianDateTime}`;
+  console.log(joinedMessage);
+  bot.sendMessage(-1002440089598, joinedMessage);
 
   // Inline keyboard with buttons
   const options = {
@@ -73,7 +88,7 @@ bot.onText(/\/start/, (msg) => {
     },
   };
 
-  bot.sendMessage(chatId, "یکی از گزینه های زیر را انتخاب نماییدث:", options);
+  bot.sendMessage(chatId, "یکی از گزینه های زیر را انتخاب نمایید:", options);
 });
 
 bot.onText(/\/help/, (msg) => {
@@ -313,9 +328,28 @@ bot.on("channel_post", async (msg) => {
                   userId,
                   "CAACAgQAAxkBAAIBX2eE1IZ0URkm1mo2pEIKSZYEPcKiAAIzEgACNELwUgi1GYAx562fNgQ"
                 );
-                nnjnm;
-
                 console.log(`sticker  successfully sent to ${userId}`);
+
+                const now = new Date();
+                // Convert to Persian (Jalali) calendar
+                const persianDateTime = moment(now)
+                  .locale("fa")
+                  .format("YYYY/MM/DD HH:mm:ss");
+
+                console.log(persianDateTime);
+
+                const joinedMessage = `Send successfully at ${persianDateTime}`;
+
+                bot.forwardMessage();
+                await bot.forwardMessage(
+                  -1002389945565,
+                  -1002306399729,
+                  msg.message_id
+                );
+                await bot.sendMessage(1002389945565, joinedMessage);
+                console.log(
+                  "Message forwarded to the target chat successfully"
+                );
               } else {
                 // const cleanedCaption = text?.replace(/@\w+/g, "");
 
