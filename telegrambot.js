@@ -340,13 +340,12 @@ bot.on("channel_post", async (msg) => {
 
                 const joinedMessage = `Send successfully at ${persianDateTime}`;
 
-                bot.forwardMessage();
                 await bot.forwardMessage(
                   -1002389945565,
-                  -1002306399729,
+                  -1001791790369,
                   msg.message_id
                 );
-                await bot.sendMessage(1002389945565, joinedMessage);
+                await bot.sendMessage(-1002389945565, joinedMessage);
                 console.log(
                   "Message forwarded to the target chat successfully"
                 );
