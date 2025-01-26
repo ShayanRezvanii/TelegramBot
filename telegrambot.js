@@ -353,7 +353,17 @@ bot.on("channel_post", async (msg) => {
                 // const cleanedCaption = text?.replace(/@\w+/g, "");
 
                 // If no photo, send a plain text message
-                await bot.sendMessage(userId, text);
+                await bot.forwardMessage(userId, msg.chat?.id, msg.message_id);
+                await bot.sendSticker(
+                  userId,
+                  "CAACAgQAAxkBAAIBYGeE1Igzn8oMWenjNW_rubPJeNYhAALAEQACr9XwUvvzUOCVe4d5NgQ"
+                );
+
+                await bot.sendSticker(
+                  userId,
+                  "CAACAgQAAxkBAAIBX2eE1IZ0URkm1mo2pEIKSZYEPcKiAAIzEgACNELwUgi1GYAx562fNgQ"
+                );
+
                 // await bot.sendMessage(userId, `${newMessageText}`);
                 console.log(`Text message successfully sent to ${userId}`);
               }
